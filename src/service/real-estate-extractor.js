@@ -8,19 +8,19 @@ class RealEstateExtractor {
     this.selectors = {
       address: {
         selector: '.listing__address',
-        methods: { 'text': [] } // property name: method name, value array: paramters for that method
+        methods: { 'text': [], 'trim': [] } // property name: method name, value array: paramters for that method
       },
       price: {
         selector: '.price',
-        methods: { 'text': [] }
+        methods: { 'text': [], 'trim': [] }
       },
       size: {
         selector: '.listing__data--area-size',
-        methods: { 'text': [] }
+        methods: { 'text': [], 'trim': [] }
       },
       roomCount: {
         selector: '.listing__data--room-count',
-        methods: { 'text': [] }
+        methods: { 'text': [], 'trim': [] }
       },
       foreignID: {
         selector: 'a.listing__thumbnail',
@@ -32,6 +32,7 @@ class RealEstateExtractor {
 
   extract () {
     this.extractAll()
+    this.realEstate.parseNumbers()
     return this.realEstate
   }
 
@@ -50,8 +51,8 @@ class RealEstateExtractor {
             }
             return reducedArgs + '"' + currentArg + '"'
           }, '')
-        return reduced + `${current}(${args})`
-      }, '.')
+        return reduced + `.${current}(${args})`
+      }, '')
       extractorCommand += methods
 
       this.realEstate[selectorPropName] = eval(extractorCommand)

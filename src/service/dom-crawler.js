@@ -2,11 +2,12 @@ const Crawler = require('crawler')
 const RealEstateExtractor = require('./real-estate-extractor')
 
 class DOMCrawler {
-  constructor (urls) {
+  constructor (urls, callb) {
     if (typeof urls === 'undefined') {
       throw new Error('No urls added')
     }
-
+    this.results = []
+    this.callb = callb
     this.urls = urls
     const _self = this
     this.crawler = new Crawler({
@@ -15,11 +16,14 @@ class DOMCrawler {
       callback (error, res, done) {
         if (error) {
           console.log(error)
+          _self.callb(error)
         } else {
           const $ = res.$
           // this is where actual crawling happens
           const flatsExtracted = _self._extractFlats($)
-          console.log('extracted', flatsExtracted)
+          this.results = flatsExtracted
+          console.log('extracted', this.results.length)
+          _self.callb(this.results)
         }
         done()
       }
