@@ -24,7 +24,7 @@ class RealEstateExtractor {
       },
       foreignID: {
         selector: 'a.listing__thumbnail',
-        methods: { 'attr': [ 'href' ] }
+        methods: { 'attr': ['href'] }
       }
     }
     this.extract()
@@ -43,17 +43,17 @@ class RealEstateExtractor {
       }
       let extractorCommand = `this.parent.find(this.selectors[selectorPropName].selector)`
       const methods = Object.keys(this.selectors[selectorPropName].methods).reduce((reduced, current) => {
-        const args = 
-        this.selectors[selectorPropName].methods[current].reduce((reducedArgs, currentArg) => {
-          if (reducedArgs.length > 1) {
-            reducedArgs += ','
-          }
-          return reducedArgs + '"' + currentArg + '"'
-        }, '')
+        const args =
+          this.selectors[selectorPropName].methods[current].reduce((reducedArgs, currentArg) => {
+            if (reducedArgs.length > 1) {
+              reducedArgs += ','
+            }
+            return reducedArgs + '"' + currentArg + '"'
+          }, '')
         return reduced + `${current}(${args})`
       }, '.')
       extractorCommand += methods
-      
+
       this.realEstate[selectorPropName] = eval(extractorCommand)
     })
   }
