@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "crawler": "^1.0.5"
+    "crawler": "^1.0.5",
+    "elasticsearch": "^13.0.1",
+    "unique-string": "^1.0.0"
   }
 }
