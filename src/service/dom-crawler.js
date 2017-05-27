@@ -31,7 +31,7 @@ class DOMCrawler {
   }
 
   _extractFlats ($) {
-    const $flats = $('.listing__link')
+    const $flats = $('.listing__card')
     const flatsExtracted = []
     $flats.each(function ($flat) {
       const extractor = new RealEstateExtractor($(this))
