@@ -1,4 +1,5 @@
-var Crawler = require('crawler')
+const Crawler = require('crawler')
+const RealEstateExtractor = require('./real-estate-extractor')
 
 class DOMCrawler {
   constructor (urls) {
@@ -15,9 +16,15 @@ class DOMCrawler {
         if (error) {
           console.log(error)
         } else {
-          var $ = res.$
+          const $ = res.$
           // this is where actual crawling happens
-          console.log($('.listing__link .listing__address').text())
+          const $flats = $('.listing__link')
+          const flatsExtracted = []
+          $flats.each(function ($flat) {
+            const extractor = new RealEstateExtractor($(this))
+            flatsExtracted.push(extractor.extract())
+          })
+          console.log('extracted', flatsExtracted)
         }
         done()
       }
