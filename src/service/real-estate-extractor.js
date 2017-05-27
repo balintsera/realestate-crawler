@@ -2,7 +2,6 @@ const RealEstate = require('../model/real-estate')
 
 class RealEstateExtractor {
   constructor (parent) {
-    console.log(parent)
     this.parent = parent
     this.realEstate = new RealEstate()
     // The selector name must match the appropriate property of RealEstate class, eg. realEstate.address =~ this.selectors.address etc. See extractAll

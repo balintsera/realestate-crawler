@@ -8,22 +8,17 @@ class DOMCrawler {
     }
 
     this.urls = urls
-    
+    const _self = this
     this.crawler = new Crawler({
       maxConnections: 10,
       // This will be called for each crawled page
-      callback: function (error, res, done) {
+      callback (error, res, done) {
         if (error) {
           console.log(error)
         } else {
           const $ = res.$
           // this is where actual crawling happens
-          const $flats = $('.listing__link')
-          const flatsExtracted = []
-          $flats.each(function ($flat) {
-            const extractor = new RealEstateExtractor($(this))
-            flatsExtracted.push(extractor.extract())
-          })
+          const flatsExtracted = _self._extractFlats($)
           console.log('extracted', flatsExtracted)
         }
         done()
@@ -33,6 +28,17 @@ class DOMCrawler {
 
   start () {
     this.crawler.queue(this.urls)
+  }
+
+  _extractFlats ($) {
+    const $flats = $('.listing__link')
+    const flatsExtracted = []
+    $flats.each(function ($flat) {
+      const extractor = new RealEstateExtractor($(this))
+      flatsExtracted.push(extractor.extract())
+    })
+
+    return flatsExtracted
   }
 }
 
