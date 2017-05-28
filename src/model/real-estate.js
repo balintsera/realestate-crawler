@@ -1,8 +1,16 @@
 const uniqueString = require('unique-string')
 const md5 = require('md5')
 
+
 class RealEstate {
-  constructor (address, price, shortDesc, size, roomCount, foreignID) {
+  static getTypes () {
+    return {
+      'tolet': 0,
+      'tosell': 1
+    }
+  }
+
+  constructor (address, price, shortDesc, size, roomCount, foreignID, type) {
     this.id = uniqueString()
     this.address = address
     this.price = price
@@ -10,6 +18,7 @@ class RealEstate {
     this.size = size
     this.roomCount = roomCount
     this.foreignID = foreignID
+    this.type = type
   }
 
   parseNumbers () {
@@ -18,7 +27,7 @@ class RealEstate {
     this.priceNum = this.price
     this.sizeNum = this.size
     this.roomCountNum = parseInt(this.roomCount, 10)
-    if (typeof this.foreignID !== undefined) {
+    if (typeof this.foreignID !== 'undefined') {
       this.id = md5(this.foreignID)
     }
   }

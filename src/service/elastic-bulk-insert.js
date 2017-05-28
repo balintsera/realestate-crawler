@@ -19,7 +19,6 @@ class ElasticBulkInsert {
     this.esClient
       .bulk({ body: this.bulkBody })
       .then(response => {
-        console.log('here')
         let errorCount = 0
         response.items.forEach(item => {
           if (item.index && item.index.error) {
