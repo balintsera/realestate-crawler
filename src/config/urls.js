@@ -1,3 +1,5 @@
+const RealEstate = require('../model/real-estate')
+
 const urls = [
   {
   url: 'http://ingatlan.com/szukites/elado+lakas+nem-berleti-jog+ar-szerint+szeged-alsovaros+10-mFt-ig+2-szoba-felett',
