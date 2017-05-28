@@ -5,8 +5,8 @@ const md5 = require('md5')
 class RealEstate {
   static getTypes () {
     return {
-      'forrent': 0,
-      'forsale': 1
+      'forrent': 'forrent',
+      'forsale': 'forsale'
     }
   }
 

@@ -12,8 +12,9 @@ esClient.indices.delete({ index: 'flats' })
 const crawler = new DOMCrawler(
     urls,
     (results) => {
-        //console.log(results)
-        new BulkInsert('flats', 'flat', results, esClient)
+        if (results.length > 0) {
+            new BulkInsert('flats', 'flat', results, esClient)
+        }
     })
 
 crawler
