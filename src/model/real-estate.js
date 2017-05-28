@@ -1,4 +1,5 @@
 const uniqueString = require('unique-string')
+const md5 = require('md5')
 
 class RealEstate {
   constructor (address, price, shortDesc, size, roomCount, foreignID) {
@@ -17,6 +18,9 @@ class RealEstate {
     this.priceNum = this.price
     this.sizeNum = this.size
     this.roomCountNum = parseInt(this.roomCount, 10)
+    if (typeof this.foreignID !== undefined) {
+      this.id = md5(this.foreignID)
+    }
   }
 }
 

@@ -44,11 +44,6 @@ class ElasticBulkInsert {
           _index: this.index,
           _type: this.type,
           _id: item.id
-        },
-        mappings: {
-          price: {
-            type: 'number'
-          }
         }
       })
       this.bulkBody.push(item)

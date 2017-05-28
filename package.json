@@ -12,6 +12,7 @@
   "dependencies": {
     "crawler": "^1.0.5",
     "elasticsearch": "^13.0.1",
+    "md5": "^2.2.1",
     "unique-string": "^1.0.0"
   }
 }
