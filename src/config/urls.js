@@ -2,7 +2,7 @@ const RealEstate = require('../model/real-estate')
 
 const urls = [
   {
-    uri: 'http://ingatlan.com/szukites/elado+lakas+nem-berleti-jog+ar-szerint+szeged-alsovaros+10-mFt-ig+2-szoba-felett',
+    uri: 'https://ingatlan.com/lista/kiado+haz+szeged+2-szoba-felett',
     parentSelector: '.listing__card',
     selectors: [
       {
