@@ -33,12 +33,12 @@ const urls = [
     ]
   },
   {
-    uri: 'http://ingatlan.com/szukites/kiado+lakas+ar-szerint+szeged-alsovaros+havi-150-ezer-Ft-ig+2-szoba-felett',
-    parentSelector: '.listing__card',
+    uri: 'https://www.jofogas.hu/szeged?q=kiado%20haz',
+    parentSelector: '.box.listing.list-item.reListElement',
     selectors: [
       {
         field: 'address',
-        selector: '.listing__address',
+        selector: '.cityname',
         methods: {'text': [], 'trim': []} // property name: method name, value array: paramters for that method
       },
       {
@@ -48,17 +48,17 @@ const urls = [
       },
       {
         field: 'size',
-        selector: '.listing__data--area-size',
+        selector: '.size',
         methods: {'text': [], 'trim': []}
       },
       {
         field: 'roomCount',
-        selector: '.listing__data--room-count',
+        selector: '.rooms',
         methods: {'text': [], 'trim': []}
       },
       {
         field: 'foreignID',
-        selector: 'a.listing__thumbnail',
+        selector: '.reLiSection a.img_small',
         methods: {'attr': ['href']}
       }
     ]

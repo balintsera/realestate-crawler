@@ -14,6 +14,7 @@ class DOMCrawler {
       maxConnections: 10,
       // This will be called for each crawled page
       callback (error, res, done) {
+        console.log("uri", res.options.uri)
         if (error) {
           console.log('error fetching data', error)
           _self.callb([])

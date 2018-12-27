@@ -7,7 +7,6 @@ class RealEstateExtractor {
 
     // The selector name must match the appropriate property of RealEstate class, eg. realEstate.address =~ this.selectors.address etc. See extractAll
     this.selectors = selectors
-    console.log("selectors", this.selectors)
     this.extract()
   }
 
