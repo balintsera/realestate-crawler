@@ -1,34 +1,13 @@
 const RealEstate = require('../model/real-estate')
 
 class RealEstateExtractor {
-  constructor (parent, type, area) {
+  constructor (parent, selectors) {
     this.parent = parent
     this.realEstate = new RealEstate()
-    this.realEstate.type = type
-    this.realEstate.area = area
+
     // The selector name must match the appropriate property of RealEstate class, eg. realEstate.address =~ this.selectors.address etc. See extractAll
-    this.selectors = {
-      address: {
-        selector: '.listing__address',
-        methods: { 'text': [], 'trim': [] } // property name: method name, value array: paramters for that method
-      },
-      price: {
-        selector: '.price',
-        methods: { 'text': [], 'trim': [] }
-      },
-      size: {
-        selector: '.listing__data--area-size',
-        methods: { 'text': [], 'trim': [] }
-      },
-      roomCount: {
-        selector: '.listing__data--room-count',
-        methods: { 'text': [], 'trim': [] }
-      },
-      foreignID: {
-        selector: 'a.listing__thumbnail',
-        methods: { 'attr': ['href'] }
-      }
-    }
+    this.selectors = selectors
+    console.log("selectors", this.selectors)
     this.extract()
   }
 
@@ -38,16 +17,17 @@ class RealEstateExtractor {
     return this.realEstate
   }
 
-  // convert this.selectors to a jQuery command like this.parent.find(this.selectors[selectorPropName].selector).attr("href") and run it for get information from DOM
+  // convert this.selectors to a jQuery command like this.parent.find(this.selectors[selectorPropName].selector).attr("href") and run it with eval to get information from the DOM
   extractAll () {
-    Object.keys(this.selectors).forEach(selectorPropName => {
-      if (!this.realEstate.hasOwnProperty(selectorPropName)) {
-        throw new Error('No such property in RealEstate: ' + selectorPropName)
+    this.selectors.forEach(selector => {
+      if (!this.realEstate.hasOwnProperty(selector.field)) {
+        throw new Error('No such property in RealEstate: ' + selector.field)
       }
-      let extractorCommand = `this.parent.find(this.selectors[selectorPropName].selector)`
-      const methods = Object.keys(this.selectors[selectorPropName].methods).reduce((reduced, current) => {
+
+      let extractorCommand = `this.parent.find(selector.selector)`
+      const methods = Object.keys(selector.methods).reduce((reduced, current) => {
         const args =
-          this.selectors[selectorPropName].methods[current].reduce((reducedArgs, currentArg) => {
+          selector.methods[current].reduce((reducedArgs, currentArg) => {
             if (reducedArgs.length > 1) {
               reducedArgs += ','
             }
@@ -57,7 +37,7 @@ class RealEstateExtractor {
       }, '')
       extractorCommand += methods
 
-      this.realEstate[selectorPropName] = eval(extractorCommand)
+      this.realEstate[selector.field] = eval(extractorCommand)
     })
   }
 }
